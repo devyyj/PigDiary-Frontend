@@ -1,13 +1,15 @@
 import React from "react";
-import BoardForm from "../../components/postForm";
+import PostUpdate from "../../components/postUpdate";
+import {useParams} from "react-router-dom";
 
-class ReadPost extends React.Component {
-  render() {
-    return (
-      <>
-        <BoardForm></BoardForm>
-      </>
-    )
-  }
+function ReadPost() {
+
+  const params = useParams();
+  return (
+    <>
+      <PostUpdate postNumber={params.postNumber}></PostUpdate>
+    </>
+  )
 }
+
 export default ReadPost
