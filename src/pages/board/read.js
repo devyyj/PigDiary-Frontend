@@ -29,7 +29,7 @@ function Read() {
     <>
       <PostDetail postNumber={params.postNumber}></PostDetail>
       <p><Link to={`/freeboard/update/${params.postNumber}`}>수정</Link></p>
-      <p><a href="" onClick={deletePost}>삭제</a></p>
+      <p><a href="https://" onClick={deletePost}>삭제</a></p>
       <p><Link to={`/freeboard`}>목록</Link></p>
     </>
   )

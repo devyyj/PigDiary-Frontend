@@ -1,20 +1,27 @@
-import BoardTable from "../../components/boardTable";
-import PageButton from "../../components/pagination";
-import Button from "react-bootstrap/Button";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Board from "../../components/board";
+import { Link } from "react-router-dom";
 
-class List extends React.Component {
+const List = () => {
+  const [data, setData] = useState(null);
 
-  render() {
-    return (
-      <>
-        <h1>자유 게시판</h1>
-        <BoardTable></BoardTable>
-        <PageButton></PageButton>
-        <Button variant="primary">글쓰기</Button>
-      </>
-    )
-  }
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:8080/freeboard");
+      setData(result.data);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <h1>자유 게시판</h1>
+      <Board data={data}></Board>
+      <Link to="/freeboard/create">글쓰기</Link>
+    </>
+  );
+};
 
 export default List;

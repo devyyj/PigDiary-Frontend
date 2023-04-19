@@ -14,8 +14,8 @@ const Board = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [page]);
+    fetchData().then(r => console.log(r));
+  }, []);
 
   const handlePrevClick = () => {
     setPage((prevPage) => prevPage - 1);
