@@ -9,6 +9,8 @@ import Create from "./pages/board/create";
 import Update from "./pages/board/update";
 import Main from "./pages/main";
 
+import './styles/global.css'
+
 const router = createBrowserRouter([{
     // 메인 페이지
     path: "/", element: <Main/>, errorElement: <ErrorPage/>
@@ -26,37 +28,31 @@ const router = createBrowserRouter([{
     path: "/update/:postNumber", element: <Update/>,
 },]);
 
-const navbarStyle = {
-    backgroundColor: 'pink'
-};
-
-class App extends React.Component {
-    render() {
-        // React.StrictMode 사용하면 render가 두번씩 됨
-        return (<>
-            <React.StrictMode>
-                <Container>
-                    <Navbar style={navbarStyle}>
-                        <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+function App() {
+    // React.StrictMode 사용하면 render가 두번씩 됨
+    return (<>
+        <React.StrictMode>
+            <Container >
+                <Navbar className="mb-5" bg="light" variant="light">
+                    <Container>
+                        <Navbar.Brand href="#home">돼지일기</Navbar.Brand>
                         <Navbar.Toggle/>
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text>
-                                Signed in as: <a href="#login">Mark Otto</a>
+                                로그인 : <a href="#login">피그 마스터</a>
                             </Navbar.Text>
                         </Navbar.Collapse>
-                    </Navbar>
+                    </Container>
+                </Navbar>
 
-                    <RouterProvider router={router}/>
+                <RouterProvider router={router}/>
 
-
-
-                    <Navbar fixed="bottom" bg="light" expand="lg" className="justify-content-center">
-                        <Navbar.Brand href="#home">My Website</Navbar.Brand>
-                    </Navbar>
-                </Container>
-            </React.StrictMode>
-        </>)
-    }
+                <Navbar className="justify-content-center mt-5" bg="light" variant="light" >
+                    <Nav.Link href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
+                </Navbar>
+            </Container>
+        </React.StrictMode>
+    </>)
 }
 
 export default App;

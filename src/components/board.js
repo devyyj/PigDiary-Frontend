@@ -2,6 +2,7 @@ import Table from 'react-bootstrap/Table';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import {Pagination} from "react-bootstrap";
 
 const Board = () => {
     const [data, setData] = useState([]);
@@ -50,9 +51,18 @@ const Board = () => {
                 ))}
                 </tbody>
             </Table>
-            <div>
-                <button onClick={handlePrevClick} disabled={page <= 1}>Prev</button>
-                <button onClick={handleNextClick} disabled={page >= totalPage}>Next</button>
+            <div className="d-flex justify-content-center">
+                <Pagination>
+                    <Pagination.First />
+                    <Pagination.Prev />
+                    <Pagination.Item>{1}</Pagination.Item>
+                    <Pagination.Item>{2}</Pagination.Item>
+                    <Pagination.Item>{3}</Pagination.Item>
+                    <Pagination.Item>{4}</Pagination.Item>
+                    <Pagination.Item>{5}</Pagination.Item>
+                    <Pagination.Next />
+                    <Pagination.Last />
+                </Pagination>
             </div>
         </div>
     );
