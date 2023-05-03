@@ -17,7 +17,6 @@ const List = () => {
 
   return (
     <>
-      <h1>자유 게시판</h1>
       <Board data={data}></Board>
       <Link to="/freeboard/create">글쓰기</Link>
     </>
