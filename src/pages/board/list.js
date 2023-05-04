@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import {api} from "../../common/common";
 import Board from "../../components/board";
 import { Link } from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -9,7 +9,7 @@ const List = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:8080/freeboard");
+      const result = await api.get("/freeboard");
       setData(result.data);
     };
 
@@ -19,11 +19,11 @@ const List = () => {
   return (
     <>
       <Board data={data}></Board>
-      <Link to="/freeboard/create"></Link>
+      {/*<Link to="/freeboard/create"></Link>*/}
       <div className="d-grid gap-2">
-        <Button variant="primary">
+        <a className={"btn btn-outline-primary"} href={"/freeboard/create"}>
           글쓰기
-        </Button>
+        </a>
       </div>
     </>
   );

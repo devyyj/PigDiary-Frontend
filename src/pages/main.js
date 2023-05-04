@@ -1,18 +1,18 @@
-import axios from "axios";
+import {api} from "../common/common";
 
 function Main() {
   async function getAll() {
-    const result = await axios.get("http://localhost:8080/all")
+    const result = await api.get("/all")
     console.log(result.data)
   }
 
   async function getMember() {
-    const result = await axios.get("http://localhost:8080/member")
+    const result = await api.get("/member")
     console.log(result.data)
   }
 
   async function getAdmin() {
-    const result = await axios.get("http://localhost:8080/admin")
+    const result = await api.get("/admin")
     console.log(result.data)
   }
 

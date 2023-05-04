@@ -1,6 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import {api} from '../common/common'
 import {Link} from "react-router-dom";
 import {Pagination} from "react-bootstrap";
 
@@ -10,7 +10,7 @@ const Board = () => {
     const [totalPage, setTotalPage] = useState(1);
 
     const fetchData = async () => {
-        const response = await axios.get(`http://localhost:8080/freeboard?page=${page}`);
+        const response = await api.get(`/freeboard?page=${page}`);
         setData(response.data.dtoList);
         setTotalPage(response.data.totalPage);
     };
@@ -29,14 +29,13 @@ const Board = () => {
 
     return (
         <div>
-            <Table striped>
+            <Table hover>
                 <thead>
                 <tr>
-                    <th>Number</th>
-                    <th>Title</th>
-                    <th>User</th>
-                    <th>Reg Date</th>
-                    <th>Mod Date</th>
+                    <th >#</th>
+                    <th >제목</th>
+                    <th >작성자</th>
+                    <th >등록 시간</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,23 +44,22 @@ const Board = () => {
                         <td>{item.number}</td>
                         <td><Link to={`/freeboard/${item.number}`}>{item.title}</Link></td>
                         <td>{item.user}</td>
-                        <td>{item.regDate}</td>
-                        <td>{item.modDate}</td>
+                        <td>{(new Date(item.regDate)).toLocaleTimeString()}</td>
                     </tr>
                 ))}
                 </tbody>
             </Table>
             <div className="d-flex justify-content-center">
                 <Pagination>
-                    <Pagination.First />
-                    <Pagination.Prev />
+                    <Pagination.First/>
+                    <Pagination.Prev/>
                     <Pagination.Item>{1}</Pagination.Item>
                     <Pagination.Item>{2}</Pagination.Item>
                     <Pagination.Item>{3}</Pagination.Item>
                     <Pagination.Item>{4}</Pagination.Item>
                     <Pagination.Item>{5}</Pagination.Item>
-                    <Pagination.Next />
-                    <Pagination.Last />
+                    <Pagination.Next/>
+                    <Pagination.Last/>
                 </Pagination>
             </div>
         </div>

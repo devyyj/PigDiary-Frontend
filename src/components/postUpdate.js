@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import {api} from '../common/common.js'
 import {useNavigate} from "react-router-dom";
 
 const PostUpdate = ({postNumber}) => {
@@ -11,7 +11,7 @@ const PostUpdate = ({postNumber}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:8080/freeboard/" + postNumber);
+      const result = await api.get("/freeboard/" + postNumber);
 
       setTitle(result.data.title);
       setContent(result.data.content);
@@ -28,13 +28,14 @@ const PostUpdate = ({postNumber}) => {
     formData.append('content', content);
     formData.append('user', user);
     try {
-      const response = await axios.put('http://localhost:8080/freeboard/' + postNumber, formData);
+      const response = await api.put('/freeboard/' + postNumber, formData);
       console.log(response.data);
       navigate("/freeboard")
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -66,6 +67,6 @@ const PostUpdate = ({postNumber}) => {
       <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
 export default PostUpdate;

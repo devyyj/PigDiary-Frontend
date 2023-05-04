@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import {api} from '../common/common'
 
 const PostDetail = ({ postNumber }) => {
   console.log(postNumber)
@@ -7,7 +7,7 @@ const PostDetail = ({ postNumber }) => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      const response = await axios.get(`http://localhost:8080/freeboard/${postNumber}`);
+      const response = await api.get(`/freeboard/${postNumber}`);
       console.log(response.data)
       setPost(response.data);
     };
@@ -20,11 +20,11 @@ const PostDetail = ({ postNumber }) => {
 
   return (
     <div>
-      <h2>{post.title}</h2>
-      <p>{post.content}</p>
+      <h1>{post.title}</h1>
       <p>작성자: {post.user}</p>
-      <p>작성일: {post.regDate}</p>
-      <p>수정일: {post.modDate}</p>
+      <p>작성일: {new Date(post.regDate).toLocaleString()}</p>
+      <p>수정일: {new Date(post.modDate).toLocaleString()}</p>
+      <p className="my-5">{post.content}</p>
     </div>
   );
 };

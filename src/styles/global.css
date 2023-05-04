@@ -1,5 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
 
 body {
-    font-family: 'Gamja Flower', cursive;
+    font-family: 'Sunflower', sans-serif;
+}
+
+.pig-bg-color {
+    background-color: pink;
+}
+
+.pig-color {
+    color: pink;
+}
+
+.table-hover tbody tr:hover {
+    background-color: pink; /* 변경하고자 하는 색상 */
+    --bs-table-hover-bg: none;
 }
