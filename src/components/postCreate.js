@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {api} from '../common/common.js'
 import {useNavigate} from "react-router-dom";
-import {FloatingLabel, Form} from "react-bootstrap";
+import {Button, FloatingLabel, Form} from "react-bootstrap";
 
 const PostCreate = () => {
     const [title, setTitle] = useState('');
@@ -27,43 +27,57 @@ const PostCreate = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="content">Content:</label>
-                    <textarea
-                        id="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="user">User:</label>
-                    <input
-                        type="text"
-                        id="user"
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+            {/*<form onSubmit={handleSubmit}>*/}
+            {/*    <div>*/}
+            {/*        <label htmlFor="title">Title:</label>*/}
+            {/*        <input*/}
+            {/*            type="text"*/}
+            {/*            id="title"*/}
+            {/*            value={title}*/}
+            {/*            onChange={(e) => setTitle(e.target.value)}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        <label htmlFor="content">Content:</label>*/}
+            {/*        <textarea*/}
+            {/*            id="content"*/}
+            {/*            value={content}*/}
+            {/*            onChange={(e) => setContent(e.target.value)}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        <label htmlFor="user">User:</label>*/}
+            {/*        <input*/}
+            {/*            type="text"*/}
+            {/*            id="user"*/}
+            {/*            value={user}*/}
+            {/*            onChange={(e) => setUser(e.target.value)}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*    <button type="submit">Submit</button>*/}
+            {/*</form>*/}
 
-            <FloatingLabel controlId="floatingTextarea2" label="Comments">
-                <Form.Control
-                    as="textarea"
-                    placeholder="Leave a comment here"
-                    style={{height: '300px'}}
-                />
-            </FloatingLabel>
+            <form>
+                <FloatingLabel
+                    controlId="floatingInput"
+                    label="제목"
+                    className="mb-3"
+                >
+                    <Form.Control type="text" placeholder=" "/>
+                </FloatingLabel>
+
+                <FloatingLabel className="mb-3" controlId="floatingTextarea" label="내용">
+                    <Form.Control
+                        as="textarea"
+                        placeholder=" "
+                        style={{height: '300px'}}
+                    />
+                </FloatingLabel>
+
+                <div className="d-grid gap-2">
+                    <Button variant="outline-primary" type="submit">게시글 작성</Button>
+                </div>
+            </form>
         </div>);
 };
 
