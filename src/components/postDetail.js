@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {api} from '../common/common'
 
 const PostDetail = ({ postNumber }) => {
-  console.log(postNumber)
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
       const response = await api.get(`/freeboard/${postNumber}`);
-      console.log(response.data)
       setPost(response.data);
     };
     fetchPost();

@@ -7,23 +7,18 @@ import {Button} from "react-bootstrap";
 function Read() {
 
     const params = useParams()
-    console.log(params);
 
     const navigate = useNavigate();
 
-    function deletePost(e) {
+    async function  deletePost(e) {
         e.preventDefault()
 
         if (window.confirm("정말 삭제하시겠습니까?") === false) {
             return;
         }
 
-        api.delete(`/freeboard/${params.postNumber}`)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-                navigate("/freeboard")
-            })
+        await api.delete(`/freeboard/${params.postNumber}`)
+        navigate("/freeboard")
     }
 
     return (

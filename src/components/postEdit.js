@@ -11,7 +11,6 @@ const PostEdit = ({postNumber}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(postNumber)
         const fetchData = async () => {
             const result = await api.get("/freeboard/" + postNumber);
 

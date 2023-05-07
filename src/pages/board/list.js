@@ -1,18 +1,7 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
-import {api} from "../../common/common";
+import React from "react";
 import Board from "../../components/board";
-import {Pagination} from "react-bootstrap";
 
 const List = () => {
-
-    useEffect(()=>{
-        console.log("useE")
-    })
-
-    useLayoutEffect(() => {
-        console.log("layout")
-    })
-
     return (
         <>
             <Board></Board>

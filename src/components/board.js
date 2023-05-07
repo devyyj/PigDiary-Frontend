@@ -1,5 +1,5 @@
 import Table from 'react-bootstrap/Table';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {api} from "../common/common";
 import {Pagination} from "react-bootstrap";
@@ -7,28 +7,28 @@ import {Pagination} from "react-bootstrap";
 const Board = () => {
 
     const [data, setData] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPage, setTotalPage] = useState(1);
+    // const [page, setPage] = useState(1);
+    const page = 1;
+    // const [totalPage, setTotalPage] = useState(1);
 
     useLayoutEffect(() => {
         const fetchData = async () => {
             const response = await api.get(`/freeboard?page=${page}`);
+            console.log(response.data)
             setData(response.data.dtoList);
-            setTotalPage(response.data.totalPage);
+            // setTotalPage(response.data.totalPage);
         };
-
-        console.log("board layout")
         fetchData();
     }, [page]);
 
 
-    const handlePrevClick = () => {
-        setPage((prevPage) => prevPage - 1);
-    };
-
-    const handleNextClick = () => {
-        setPage((prevPage) => prevPage + 1);
-    };
+    // const handlePrevClick = () => {
+    //     setPage((prevPage) => prevPage - 1);
+    // };
+    //
+    // const handleNextClick = () => {
+    //     setPage((prevPage) => prevPage + 1);
+    // };
 
     return (
         <div>
