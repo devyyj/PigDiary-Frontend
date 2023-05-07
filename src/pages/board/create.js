@@ -1,11 +1,11 @@
 import React from "react";
-import BoardForm from "../../components/postCreate";
+import PostEdit from "../../components/postEdit";
 
 class ReadPost extends React.Component {
   render() {
     return (
       <>
-        <BoardForm></BoardForm>
+        <PostEdit></PostEdit>
       </>
     )
   }

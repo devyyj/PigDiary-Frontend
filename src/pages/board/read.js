@@ -2,6 +2,7 @@ import React from "react";
 import PostDetail from "../../components/postDetail";
 import {useNavigate, useParams} from "react-router-dom";
 import {api} from "../../common/common";
+import {Button} from "react-bootstrap";
 
 function Read() {
 
@@ -32,9 +33,9 @@ function Read() {
                 <a className="btn btn-outline-warning" href={`/freeboard/update/${params.postNumber}`}>
                     수정
                 </a>
-                <a className="btn btn-outline-danger" href={'https://'}>
+                <Button variant="outline-danger" onClick={deletePost}>
                     삭제
-                </a>
+                </Button>
                 <a className="btn btn-outline-primary" href={`/freeboard`}>
                     목록
                 </a>

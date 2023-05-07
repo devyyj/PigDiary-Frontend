@@ -1,23 +1,26 @@
 import Table from 'react-bootstrap/Table';
-import React, {useState, useEffect} from 'react';
-import {api} from '../common/common'
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {Link} from "react-router-dom";
+import {api} from "../common/common";
 import {Pagination} from "react-bootstrap";
 
 const Board = () => {
+
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
 
-    const fetchData = async () => {
-        const response = await api.get(`/freeboard?page=${page}`);
-        setData(response.data.dtoList);
-        setTotalPage(response.data.totalPage);
-    };
+    useLayoutEffect(() => {
+        const fetchData = async () => {
+            const response = await api.get(`/freeboard?page=${page}`);
+            setData(response.data.dtoList);
+            setTotalPage(response.data.totalPage);
+        };
 
-    useEffect(() => {
-        fetchData().then(r => console.log(r));
-    }, []);
+        console.log("board layout")
+        fetchData();
+    }, [page]);
+
 
     const handlePrevClick = () => {
         setPage((prevPage) => prevPage - 1);
@@ -32,10 +35,10 @@ const Board = () => {
             <Table hover>
                 <thead>
                 <tr>
-                    <th >#</th>
-                    <th >제목</th>
-                    <th >작성자</th>
-                    <th >등록 시간</th>
+                    <th>#</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>등록 시간</th>
                 </tr>
                 </thead>
                 <tbody>
