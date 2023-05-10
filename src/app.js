@@ -52,7 +52,7 @@ function App() {
             </Container>
 
             <Navbar className="pig-bg-color justify-content-center mt-5" variant="light">
-                <Nav.Link href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
+                <Nav.Link target={"_blank"} href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
             </Navbar>
         </React.StrictMode>
     </>)

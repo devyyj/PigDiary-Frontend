@@ -7,28 +7,23 @@ import {Pagination} from "react-bootstrap";
 const Board = () => {
 
     const [data, setData] = useState([]);
-    // const [page, setPage] = useState(1);
-    const page = 1;
+    const [page, setPage] = useState(1);
+    const [pageList, setPageList] = useState([1, 2, 3, 4, 5])
+    const [prev, setPrev] = useState(false)
+    const [next, setNext] = useState(true)
     // const [totalPage, setTotalPage] = useState(1);
 
     useLayoutEffect(() => {
         const fetchData = async () => {
-            const response = await api.get(`/freeboard?page=${page}`);
-            console.log(response.data)
-            setData(response.data.dtoList);
-            // setTotalPage(response.data.totalPage);
+            const response = (await api.get(`/freeboard?page=${page}`)).data;
+            console.log(response)
+            setData(response.dtoList)
+            setPageList(response.pageList)
+            setPrev(response.prev)
+            setNext(response.next)
         };
         fetchData();
     }, [page]);
-
-
-    // const handlePrevClick = () => {
-    //     setPage((prevPage) => prevPage - 1);
-    // };
-    //
-    // const handleNextClick = () => {
-    //     setPage((prevPage) => prevPage + 1);
-    // };
 
     return (
         <div>
@@ -54,15 +49,17 @@ const Board = () => {
             </Table>
             <div className="d-flex justify-content-center">
                 <Pagination>
-                    <Pagination.First/>
-                    <Pagination.Prev/>
-                    <Pagination.Item>{1}</Pagination.Item>
-                    <Pagination.Item>{2}</Pagination.Item>
-                    <Pagination.Item>{3}</Pagination.Item>
-                    <Pagination.Item>{4}</Pagination.Item>
-                    <Pagination.Item>{5}</Pagination.Item>
-                    <Pagination.Next/>
-                    <Pagination.Last/>
+                    <Pagination.Prev disabled={!prev} onClick={() => setPage(page - 1)} />
+                    {pageList.map((pageNumber) => (
+                        <Pagination.Item
+                            key={pageNumber}
+                            active={pageNumber === page}
+                            onClick={() => setPage(pageNumber)}
+                        >
+                            {pageNumber}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Next disabled={!next} onClick={() => setPage(page + 1)} />
                 </Pagination>
             </div>
         </div>
