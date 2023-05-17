@@ -41,7 +41,7 @@ function App() {
                             <Nav.Link href="/freeboard">자유게시판</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#">피그 마스터</Nav.Link>
+                            <Nav.Link href="#">-</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
