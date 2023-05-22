@@ -1,6 +1,7 @@
 import {Button} from "react-bootstrap";
 import {useEffect} from "react";
 import axios from "axios";
+import {api} from "../common/common";
 
 function Main() {
     const Kakao = window.Kakao;
@@ -35,17 +36,12 @@ function Main() {
                     // const accessToken = response.data.access_token;
                     // const refreshToken = response.data.refresh_token;
                     // 토큰을 사용하여 원하는 작업 수행
-                    Kakao.API.request({
-                        url: '/v2/user/me',
-                    })
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    const userData = await Kakao.API.request({url: '/v2/user/me'})
+                    console.log(userData);
+                    const nick_name = await api.post("/user", {socialId: userData.id, nickName: userData.id})
+                    console.log(nick_name);
                 } catch (error) {
-                    console.log('토큰 얻기 실패:', error);
+                    console.log(error);
                 }
             };
             getToken();
