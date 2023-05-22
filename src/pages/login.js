@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React, {useEffect} from 'react';
+import axios from "axios";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+    useEffect(() => {
+        const kakao = window.Kakao;
+        if (kakao.isInitialized()) {
+            // kakao.init('ccc3f29c5a122654960761cb279c2f05'); // 카카오 JavaScript SDK 키 초기화
+            kakao.Auth.authorize({
+                redirectUri: 'http://localhost:3000',
+            });
+        }
+    }, []);
 
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setPassword(event.target.value);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    // 로그인 처리 로직
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">이메일:</label>
-        <input type="email" id="email" value={email} onChange={handleEmailChange} />
-      </div>
-      <div>
-        <label htmlFor="password">비밀번호:</label>
-        <input type="password" id="password" value={password} onChange={handlePasswordChange} />
-      </div>
-      <button type="submit">로그인</button>
-    </form>
-  );
-}
+    return (
+        <div>
+            카카오 로그인
+        </div>
+    );
+};
 
 export default Login;

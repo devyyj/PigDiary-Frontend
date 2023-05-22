@@ -2,14 +2,15 @@ import React from 'react';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 
-import List from "./pages/board/list";
+import List from "./pages/freeBoard/list";
 import ErrorPage from "./pages/error";
-import Read from "./pages/board/read";
-import Create from "./pages/board/create";
-import Update from "./pages/board/update";
+import Read from "./pages/freeBoard/read";
+import Create from "./pages/freeBoard/create";
+import Update from "./pages/freeBoard/update";
 import Main from "./pages/main";
 
 import './styles/global.css'
+import Login from "./pages/login";
 
 const router = createBrowserRouter([{
     // 메인 페이지
@@ -26,12 +27,15 @@ const router = createBrowserRouter([{
 }, {
     // 게시글 수정
     path: "/freeboard/update/:postNumber", element: <Update/>,
-},]);
+}, {
+    // 로그인
+    path: "/login", element: <Login/>
+}]);
 
 function App() {
     // React.StrictMode 사용하면 render가 두번씩 됨
     return (<>
-        <React.StrictMode>
+        {/*<React.StrictMode>*/}
             <Navbar className={"mb-3 pig-bg-color"} collapseOnSelect expand="md" variant="light">
                 <Container>
                     <Navbar.Brand href="/">돼지일기</Navbar.Brand>
@@ -41,7 +45,7 @@ function App() {
                             <Nav.Link href="/freeboard">자유게시판</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#">-</Nav.Link>
+                            <Nav.Link href="/login">카카오 로그인</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
@@ -54,7 +58,7 @@ function App() {
             <Navbar className="pig-bg-color justify-content-center mt-5" variant="light">
                 <Nav.Link target={"_blank"} href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
             </Navbar>
-        </React.StrictMode>
+        {/*</React.StrictMode>*/}
     </>)
 }
 
