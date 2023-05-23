@@ -8,9 +8,9 @@ import Read from "./pages/freeBoard/read";
 import Create from "./pages/freeBoard/create";
 import Update from "./pages/freeBoard/update";
 import Main from "./pages/main";
+import {login} from "./common/common"
 
 import './styles/global.css'
-import Login from "./pages/login";
 
 const router = createBrowserRouter([{
     // 메인 페이지
@@ -27,37 +27,37 @@ const router = createBrowserRouter([{
 }, {
     // 게시글 수정
     path: "/freeboard/update/:postNumber", element: <Update/>,
-}, {
-    // 로그인
-    path: "/login", element: <Login/>
 }]);
 
 function App() {
+    // const userInfo = useSelector(state => state.userInfo);
+
     // React.StrictMode 사용하면 render가 두번씩 됨
     return (<>
         {/*<React.StrictMode>*/}
-            <Navbar className={"mb-3 pig-bg-color"} collapseOnSelect expand="md" variant="light">
-                <Container>
-                    <Navbar.Brand href="/">돼지일기</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link href="/freeboard">자유게시판</Nav.Link>
-                        </Nav>
-                        <Nav>
-                            <Nav.Link href="/login">카카오 로그인</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-
+        <Navbar className={"mb-3 pig-bg-color"} collapseOnSelect expand="md" variant="light">
             <Container>
-                <RouterProvider router={router}/>
+                <Navbar.Brand href="/">돼지일기</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/freeboard">자유게시판</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        <Nav.Link onClick={login}>카카오 로그인</Nav.Link>
+                        {/*{userInfo}*/}
+                    </Nav>
+                </Navbar.Collapse>
             </Container>
+        </Navbar>
 
-            <Navbar className="pig-bg-color justify-content-center mt-5" variant="light">
-                <Nav.Link target={"_blank"} href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
-            </Navbar>
+        <Container>
+            <RouterProvider router={router}/>
+        </Container>
+
+        <Navbar className="pig-bg-color justify-content-center mt-5" variant="light">
+            <Nav.Link target={"_blank"} href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
+        </Navbar>
         {/*</React.StrictMode>*/}
     </>)
 }
