@@ -2,19 +2,21 @@ import React from 'react';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 
+import './styles/global.css'
 import List from "./pages/freeBoard/list";
 import ErrorPage from "./pages/error";
 import Read from "./pages/freeBoard/read";
 import Create from "./pages/freeBoard/create";
 import Update from "./pages/freeBoard/update";
 import Main from "./pages/main";
-import {login} from "./common/common"
-
-import './styles/global.css'
+import Login from "./pages/login";
 
 const router = createBrowserRouter([{
     // 메인 페이지
     path: "/", element: <Main/>, errorElement: <ErrorPage/>
+}, {
+    // 로그인 페이지
+    path: "/login", element: <Login/>, errorElement: <ErrorPage/>
 }, {
     // 전체 조회
     path: "/freeboard", element: <List/>, errorElement: <ErrorPage/>,
@@ -44,8 +46,7 @@ function App() {
                         <Nav.Link href="/freeboard">자유게시판</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link onClick={login}>카카오 로그인</Nav.Link>
-                        {/*{userInfo}*/}
+                        <Nav.Link href="/login">로그인</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -55,7 +56,7 @@ function App() {
             <RouterProvider router={router}/>
         </Container>
 
-        <Navbar className="pig-bg-color justify-content-center mt-5" variant="light">
+        <Navbar className="pig-bg-color justify-content-center mt-3" variant="light">
             <Nav.Link target={"_blank"} href="https://github.com/devyyj">개발자 깃허브</Nav.Link>
         </Navbar>
         {/*</React.StrictMode>*/}

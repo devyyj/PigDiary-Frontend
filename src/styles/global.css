@@ -16,3 +16,16 @@ body {
     background-color: pink; /* 변경하고자 하는 색상 */
     --bs-table-hover-bg: none;
 }
+
+/* src/components/Login.css */
+.login-container {
+    display: flex;
+    flex-direction: column; /* 세로로 나란히 표시 */
+    justify-content: center; /* 세로 방향으로 중앙 정렬 */
+    align-items: center; /* 가로 방향으로 중앙 정렬 */
+    /*height: 100vh; !* 화면 높이 전체를 사용해서 세로 중앙 정렬 *!*/
+}
+
+.login-button {
+    margin: 10px; /* 이미지 간격을 조절 */
+}
