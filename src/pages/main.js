@@ -6,7 +6,7 @@ function Main() {
     }, []);
 
     async function test() {
-        const result = await api.get("/", {withCredentials: true})
+        const result = await api.get("/user", {withCredentials: true})
         console.log(result)
     }
 
