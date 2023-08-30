@@ -1,8 +1,8 @@
-import React from "react";
-import PostEdit from "../../components/postEdit";
+import React from 'react'
+import PostEdit from '../../components/postEdit'
 
-class ReadPost extends React.Component {
-  render() {
+class CreatePost extends React.Component {
+  render () {
     return (
       <>
         <PostEdit></PostEdit>
@@ -10,4 +10,4 @@ class ReadPost extends React.Component {
     )
   }
 }
-export default ReadPost
+export default CreatePost

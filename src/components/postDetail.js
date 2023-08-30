@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import {api} from '../common/common'
+import React, { useState, useEffect } from 'react'
+import { api } from '../common/common'
 
 const PostDetail = ({ postNumber }) => {
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState(null)
 
   useEffect(() => {
     const fetchPost = async () => {
-      const response = await api.get(`/freeboard/${postNumber}`);
-      setPost(response.data);
-    };
-    fetchPost();
-  }, [postNumber]);
+      const response = await api.get(`/freeboard/${postNumber}`)
+      setPost(response.data)
+    }
+    fetchPost()
+  }, [postNumber])
 
   if (!post) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -24,7 +24,7 @@ const PostDetail = ({ postNumber }) => {
       <p>수정일: {new Date(post.modDate).toLocaleString()}</p>
       <p className="my-5">{post.content}</p>
     </div>
-  );
-};
+  )
+}
 
-export default PostDetail;
+export default PostDetail

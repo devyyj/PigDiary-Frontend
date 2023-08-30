@@ -1,31 +1,30 @@
-import Table from 'react-bootstrap/Table';
-import React, {useLayoutEffect, useState} from 'react';
-import {Link} from "react-router-dom";
-import {api} from "../common/common";
-import {Pagination} from "react-bootstrap";
+import Table from 'react-bootstrap/Table'
+import React, { useLayoutEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { api } from '../common/common'
+import { Pagination } from 'react-bootstrap'
 
 const Board = () => {
+  const [data, setData] = useState([])
+  const [page, setPage] = useState(1)
+  const [pageList, setPageList] = useState([1, 2, 3, 4, 5])
+  const [prev, setPrev] = useState(false)
+  const [next, setNext] = useState(true)
+  // const [totalPage, setTotalPage] = useState(1);
 
-    const [data, setData] = useState([]);
-    const [page, setPage] = useState(1);
-    const [pageList, setPageList] = useState([1, 2, 3, 4, 5])
-    const [prev, setPrev] = useState(false)
-    const [next, setNext] = useState(true)
-    // const [totalPage, setTotalPage] = useState(1);
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      const response = (await api.get(`/freeboard?page=${page}`)).data
+      console.log(response)
+      setData(response.dtoList)
+      setPageList(response.pageList)
+      setPrev(response.prev)
+      setNext(response.next)
+    }
+    fetchData()
+  }, [page])
 
-    useLayoutEffect(() => {
-        const fetchData = async () => {
-            const response = (await api.get(`/freeboard?page=${page}`)).data;
-            console.log(response)
-            setData(response.dtoList)
-            setPageList(response.pageList)
-            setPrev(response.prev)
-            setNext(response.next)
-        };
-        fetchData();
-    }, [page]);
-
-    return (
+  return (
         <div>
             <Table hover>
                 <thead>
@@ -63,7 +62,7 @@ const Board = () => {
                 </Pagination>
             </div>
         </div>
-    );
-};
+  )
+}
 
-export default Board;
+export default Board

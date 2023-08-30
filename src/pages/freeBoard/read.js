@@ -1,27 +1,26 @@
-import React from "react";
-import PostDetail from "../../components/postDetail";
-import {useNavigate, useParams} from "react-router-dom";
-import {api} from "../../common/common";
-import {Button} from "react-bootstrap";
+import React from 'react'
+import PostDetail from '../../components/postDetail'
+import { useNavigate, useParams } from 'react-router-dom'
+import { api } from '../../common/common'
+import { Button } from 'react-bootstrap'
 
-function Read() {
+function Read () {
+  const params = useParams()
 
-    const params = useParams()
+  const navigate = useNavigate()
 
-    const navigate = useNavigate();
+  async function deletePost (e) {
+    e.preventDefault()
 
-    async function  deletePost(e) {
-        e.preventDefault()
-
-        if (window.confirm("정말 삭제하시겠습니까?") === false) {
-            return;
-        }
-
-        await api.delete(`/freeboard/${params.postNumber}`)
-        navigate("/freeboard")
+    if (window.confirm('정말 삭제하시겠습니까?') === false) {
+      return
     }
 
-    return (
+    await api.delete(`/freeboard/${params.postNumber}`)
+    navigate('/freeboard')
+  }
+
+  return (
         <>
             <PostDetail postNumber={params.postNumber}></PostDetail>
             <div className="d-grid gap-2">
@@ -31,12 +30,12 @@ function Read() {
                 <Button variant="outline-danger" onClick={deletePost}>
                     삭제
                 </Button>
-                <a className="btn btn-outline-primary" href={`/freeboard`}>
+                <a className="btn btn-outline-primary" href={'/freeboard'}>
                     목록
                 </a>
             </div>
         </>
-    )
+  )
 }
 
 export default Read

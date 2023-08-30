@@ -1,16 +1,16 @@
-import {useEffect} from "react";
-import {api} from "../common/common"
+import { useEffect } from 'react'
+import { api } from '../common/common'
 
-function Main() {
-    useEffect(() => {
-    }, []);
+function Main () {
+  useEffect(() => {
+  }, [])
 
-    async function test() {
-        const result = await api.get("/user", {withCredentials: true})
-        console.log(result)
-    }
+  async function test () {
+    const result = await api.get('/user', { withCredentials: true })
+    console.log(result)
+  }
 
-    return (
+  return (
         <>
             <div>
                 <h1>안녕하세오. 자유게시판으로 가세오.</h1>
@@ -18,7 +18,7 @@ function Main() {
                 <button onClick={test}>test</button>
             </div>
         </>
-    );
+  )
 }
 
-export default Main;
+export default Main

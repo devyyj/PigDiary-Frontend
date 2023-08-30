@@ -1,43 +1,43 @@
-import React, {useEffect, useState} from 'react';
-import {api} from '../common/common.js'
-import {useNavigate} from "react-router-dom";
-import {Button, FloatingLabel, Form} from "react-bootstrap";
+import React, { useEffect, useState } from 'react'
+import { api } from '../common/common.js'
+import { useNavigate } from 'react-router-dom'
+import { Button, FloatingLabel, Form } from 'react-bootstrap'
 
-const PostEdit = ({postNumber}) => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [user, setUser] = useState('');
+const PostEdit = ({ postNumber }) => {
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [user, setUser] = useState('')
 
-    const navigate = useNavigate();
+  const navigate = useNavigate()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await api.get("/freeboard/" + postNumber);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await api.get('/freeboard/' + postNumber)
 
-            setTitle(result.data.title);
-            setContent(result.data.content);
-            setUser(result.data.user);
-        }
+      setTitle(result.data.title)
+      setContent(result.data.content)
+      setUser(result.data.user)
+    }
 
-        if (postNumber) fetchData();
-    }, [postNumber]);
+    if (postNumber) fetchData()
+  }, [postNumber])
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('user', user);
-        try {
-            if (postNumber) await api.put('/freeboard/' + postNumber, formData);
-            else await api.post('/freeboard', formData);
-            navigate("/freeboard")
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('user', user)
+    try {
+      if (postNumber) await api.put('/freeboard/' + postNumber, formData)
+      else await api.post('/freeboard', formData)
+      navigate('/freeboard')
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-    return (
+  return (
         <div>
             <form onSubmit={handleSubmit}>
                 <FloatingLabel
@@ -69,7 +69,7 @@ const PostEdit = ({postNumber}) => {
                     <Form.Control
                         as="textarea"
                         placeholder=" "
-                        style={{height: '300px'}}
+                        style={{ height: '300px' }}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
@@ -79,7 +79,7 @@ const PostEdit = ({postNumber}) => {
                     <Button variant="outline-primary" type="submit">게시글 작성</Button>
                 </div>
             </form>
-        </div>);
-};
+        </div>)
+}
 
-export default PostEdit;
+export default PostEdit
