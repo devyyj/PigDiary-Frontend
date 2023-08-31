@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Container, Nav, Navbar } from 'react-bootstrap'
-
 import './styles/global.css'
 import List from './pages/freeBoard/list'
 import ErrorPage from './pages/error'
@@ -10,7 +9,8 @@ import Create from './pages/freeBoard/create'
 import Update from './pages/freeBoard/update'
 import Main from './pages/main'
 import Login from './pages/login'
-import Counter from './pages/counter'
+import TopNav from './components/topNav'
+import MyInfo from './pages/myInfo'
 
 const router = createBrowserRouter([
   {
@@ -32,30 +32,15 @@ const router = createBrowserRouter([
     // 게시글 수정
     path: '/freeboard/update/:postNumber', element: <Update/>
   }, {
-    path: '/counter', element: <Counter/>
+    path: '/myinfo', element: <MyInfo/>
   }
 ])
 
-function App () {
-  // const userInfo = useSelector(state => state.userInfo);
-
+export default function App () {
   // React.StrictMode 사용하면 render가 두번씩 됨
   return (<>
         {/* <React.StrictMode> */}
-        <Navbar className={'mb-3 pig-bg-color'} collapseOnSelect expand="md" variant="light">
-            <Container>
-                <Navbar.Brand href="/">돼지일기</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/freeboard">자유게시판</Nav.Link>
-                    </Nav>
-                    <Nav>
-                        <Nav.Link href="/login">로그인</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <TopNav/>
 
         <Container>
             <RouterProvider router={router}/>
@@ -67,5 +52,3 @@ function App () {
         {/* </React.StrictMode> */}
     </>)
 }
-
-export default App

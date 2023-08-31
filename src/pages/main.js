@@ -6,15 +6,15 @@ function Main () {
   }, [])
 
   async function test () {
-    const result = await api.get('/user', { withCredentials: true })
+    const result = await api.delete('/user', { withCredentials: true })
     console.log(result)
   }
 
   return (
         <>
             <div>
-                <h1>안녕하세오. 자유게시판으로 가세오.</h1>
-                <p>현재 개발중인니다.</p>
+                <h1>메인 페이지 공사중 🛠️</h1>
+                <p>자유게시판으로 가세요 🚀</p>
                 <button onClick={test}>test</button>
             </div>
         </>
