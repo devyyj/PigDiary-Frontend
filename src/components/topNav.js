@@ -5,12 +5,11 @@ import { api } from '../common/common'
 
 async function logout () {
   const response = await api.get('/logout')
-  console.log(response)
+  if (response.status === 200) window.location.href = '/'
 }
 
 export default function topNav () {
   const [cookies] = useCookies(['isLogged'])
-  console.log(cookies)
   return <Navbar className={'mb-3 pig-bg-color'} collapseOnSelect expand="md" variant="light">
         <Container>
             <Navbar.Brand href="/">돼지일기</Navbar.Brand>

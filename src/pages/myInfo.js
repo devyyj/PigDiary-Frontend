@@ -1,65 +1,92 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import { Button } from 'react-bootstrap'
+import { api } from '../common/common'
 
-function MyInfo () {
-  // 닉네임 상태 변수
-  const [nickname, setNickname] = useState('사용자 닉네임')
+export default function MyInfo () {
+  const [nickName, setNickName] = useState('')
 
-  // 닉네임 변경 관련 상태 변수
-  const [newNickname, setNewNickname] = useState('')
-  const [isEditing, setIsEditing] = useState(false)
+  useEffect(() => {
+    // 서버에서 닉네임 가져오기
+    const fetchUserData = async () => {
+      try {
+        const response = await api.get('/user') // axios로 변경
+        if (response.status === 200 || response.data.nickName) {
+          setNickName(response.data.nickName)
+        } else {
+          console.error('사용자 정보를 가져오지 못했습니다.')
+        }
+      } catch (error) {
+        console.error('사용자 정보를 가져오는 중 오류 발생:', error)
+      }
+    }
 
-  // 닉네임 변경 함수
-  const handleNicknameChange = () => {
-    setNickname(newNickname)
-    setNewNickname('')
-    setIsEditing(false)
+    fetchUserData()
+  }, [])
+
+  const handleNicknameChange = (e) => {
+    setNickName(e.target.value)
   }
 
-  // 회원 탈퇴 함수
-  const handleDeleteAccount = () => {
-    // 여기에서 회원 탈퇴 로직을 추가하세요.
-    // 예: API 호출 또는 로컬 스토리지에서 사용자 정보 삭제 등
-    alert('회원 탈퇴를 완료했습니다.')
+  const handleSaveNickname = async () => {
+    try {
+      // 변경된 닉네임 서버에 저장
+      const response = await api.put('/user', { nickName })
+      if (response.status === 200) {
+        alert('내 정보가 저장됐어요! 🐽')
+        console.log('닉네임이 변경되었습니다.')
+      } else {
+        console.error('닉네임 변경에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('닉네임 변경 중 오류 발생:', error)
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    try {
+      if (confirm('정말 탈퇴하시나요? 😥')) {
+        // 회원 탈퇴 요청 서버에 보내기
+        const response = await api.delete('/user')
+        if (response.status === 200) {
+          confirm('탈퇴가 완료됐어요. 다음에 다시 만나요. 🐖')
+          window.location.href = '/'
+        } else {
+          console.error('회원 탈퇴에 실패했습니다.')
+        }
+      }
+    } catch (error) {
+      console.error('회원 탈퇴 중 오류 발생:', error)
+    }
   }
 
   return (
-        <Container>
-            <h1>내 정보</h1>
-            <Row>
-                <Col>
-                    <h3>닉네임</h3>
-                    {isEditing
-                      ? (
-                        <Form>
-                            <Form.Group controlId="newNickname">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="새 닉네임 입력"
-                                    value={newNickname}
-                                    onChange={(e) => setNewNickname(e.target.value)}
-                                />
-                            </Form.Group>
-                            <Button variant="primary" onClick={handleNicknameChange}>
-                                변경
-                            </Button>
-                        </Form>
-                        )
-                      : (
-                        <div>
-                            <p>{nickname}</p>
-                            <Button variant="link" onClick={() => setIsEditing(true)}>
-                                닉네임 변경
-                            </Button>
-                        </div>
-                        )}
-                    <Button variant="danger" onClick={handleDeleteAccount}>
-                        회원 탈퇴
-                    </Button>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <Form>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column sm="2">
+                        닉네임
+                    </Form.Label>
+                    <Col>
+                        <Form.Control
+                            type="text"
+                            value={nickName}
+                            onChange={handleNicknameChange}
+                        />
+                    </Col>
+                </Form.Group>
+            </Form>
+            <Col>
+                <Button variant="primary" onClick={handleSaveNickname}>
+                    저장
+                </Button>
+            </Col>
+            <hr/>
+            <a href={'#'} onClick={handleDeleteAccount}>
+                회원 탈퇴
+            </a>
+        </>
   )
 }
-
-export default MyInfo
