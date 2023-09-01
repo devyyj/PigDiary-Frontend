@@ -2,14 +2,18 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 import React from 'react'
 import { useCookies } from 'react-cookie'
 import { api } from '../common/common'
-
-async function logout () {
-  const response = await api.get('/logout')
-  if (response.status === 200) window.location.href = '/'
-}
+import { useNavigate } from 'react-router-dom'
 
 export default function topNav () {
   const [cookies] = useCookies(['isLogged'])
+  const navigate = useNavigate()
+  async function logout () {
+    if (confirm('로그아웃 하시겠어요? 🐗')) {
+      const response = await api.get('/logout')
+      if (response.status === 200) navigate('/')
+    }
+  }
+
   return <Navbar className={'mb-3 pig-bg-color'} collapseOnSelect expand="md" variant="light">
         <Container>
             <Navbar.Brand href="/">돼지일기</Navbar.Brand>

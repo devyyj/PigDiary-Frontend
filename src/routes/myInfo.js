@@ -4,8 +4,10 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import { Button } from 'react-bootstrap'
 import { api } from '../common/common'
+import { useNavigate } from 'react-router-dom'
 
 export default function MyInfo () {
+  const navigate = useNavigate()
   const [nickName, setNickName] = useState('')
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export default function MyInfo () {
         const response = await api.delete('/user')
         if (response.status === 200) {
           confirm('탈퇴가 완료됐어요. 다음에 다시 만나요. 🐖')
-          window.location.href = '/'
+          navigate('/')
         } else {
           console.error('회원 탈퇴에 실패했습니다.')
         }
