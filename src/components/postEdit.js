@@ -6,20 +6,28 @@ import { Button, FloatingLabel, Form } from 'react-bootstrap'
 const PostEdit = ({ postNumber }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [user, setUser] = useState('')
+  const [nickName, setNickName] = useState('')
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPostData = async () => {
       const result = await api.get('/freeboard/' + postNumber)
 
       setTitle(result.data.title)
       setContent(result.data.content)
-      setUser(result.data.user)
+      setNickName(result.data.user)
     }
 
-    if (postNumber) fetchData()
+    const fetchUserData = async () => {
+      const result = await api.get('/user')
+
+      console.log(result)
+      setNickName(result.data.nickName)
+    }
+
+    if (postNumber) fetchPostData()
+    else fetchUserData()
   }, [postNumber])
 
   const handleSubmit = async (e) => {
@@ -27,7 +35,7 @@ const PostEdit = ({ postNumber }) => {
     const formData = new FormData()
     formData.append('title', title)
     formData.append('content', content)
-    formData.append('user', user)
+    formData.append('user', nickName)
     try {
       if (postNumber) await api.put('/freeboard/' + postNumber, formData)
       else await api.post('/freeboard', formData)
@@ -42,16 +50,18 @@ const PostEdit = ({ postNumber }) => {
             <form onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="floatingInput"
-                    label="이름"
+                    label="작성자"
                     className="mb-3"
                 >
                     <Form.Control
+                        readOnly
                         type="text"
                         placeholder=" "
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
+                        value={nickName}
+                        onChange={(e) => setNickName(e.target.value)}
                     />
                 </FloatingLabel>
+
                 <FloatingLabel
                     controlId="floatingInput"
                     label="제목"
@@ -75,7 +85,8 @@ const PostEdit = ({ postNumber }) => {
                     />
                 </FloatingLabel>
 
-                <div className="d-grid gap-2">
+                <div className="d-flex justify-content-end">
+                    <Button className={'mx-1'} variant="outline-danger">취소</Button>
                     <Button variant="outline-primary" type="submit">게시글 작성</Button>
                 </div>
             </form>

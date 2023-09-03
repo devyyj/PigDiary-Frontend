@@ -26,7 +26,7 @@ export default function List () {
             <Board></Board>
             <div className="d-flex justify-content-end">
                 <button
-                    className={'btn btn-outline-primary float-right'}
+                    className={'btn btn-outline-primary'}
                     onClick={handleWriteButtonClick}
                 >
                     글쓰기

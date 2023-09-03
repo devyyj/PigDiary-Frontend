@@ -80,15 +80,18 @@ export default function MyInfo () {
                     </Col>
                 </Form.Group>
             </Form>
-            <Col>
+
+            <Col className="d-flex justify-content-end">
                 <Button variant="primary" onClick={handleSaveNickname}>
                     저장
                 </Button>
             </Col>
             <hr/>
-            <a href={'#'} onClick={handleDeleteAccount}>
-                회원 탈퇴
-            </a>
+            <div className="d-flex justify-content-end">
+                <a href={'#'} onClick={handleDeleteAccount}>
+                    회원 탈퇴
+                </a>
+            </div>
         </>
   )
 }
