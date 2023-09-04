@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { api } from '../common/common'
 import { Pagination } from 'react-bootstrap'
 
-const Board = () => {
+export default function Board () {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
   const [pageList, setPageList] = useState([1, 2, 3, 4, 5])
@@ -38,9 +38,8 @@ const Board = () => {
                 {data.map((item) => (
                     <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '150px' }}>
-                            {/* whiteSpace 속성과 ellipsis로 텍스트 오버플로우 제어 */}
-                            <Link to={`/freeboard/${item.id}`}>{item.title}</Link>
+                        <td>
+                            <Link to={`/freeboard/${item.id}`} style={{ overflowWrap: 'anywhere' }}>{item.title}</Link>
                         </td>
                         <td>{item.nickName}</td>
                         <td>{new Date(item.createdAt).toLocaleTimeString()}</td>
@@ -66,5 +65,3 @@ const Board = () => {
         </div>
   )
 }
-
-export default Board

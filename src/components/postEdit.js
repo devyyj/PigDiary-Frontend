@@ -13,6 +13,8 @@ export default function PostEdit ({ postId }) {
 
   const titleMinLength = 1
   const contentMinLength = 1
+  const titleMaxLength = 50 // 최대 길이 설정
+  const contentMaxLength = 1500 // 최대 길이 설정
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -37,8 +39,14 @@ export default function PostEdit ({ postId }) {
     if (title.trim().length < titleMinLength) {
       newErrors.title = `제목은 최소 공백을 제외한 ${titleMinLength}자 이상이어야 합니다.`
     }
+    if (title.length > titleMaxLength) { // 최대 길이 초과 검증 추가
+      newErrors.title = `제목은 최대 ${titleMaxLength}자까지 가능합니다.`
+    }
     if (content.length < contentMinLength) {
       newErrors.content = `내용은 최소 ${contentMinLength}자 이상이어야 합니다.`
+    }
+    if (content.length > contentMaxLength) { // 최대 길이 초과 검증 추가
+      newErrors.content = `내용은 최대 ${contentMaxLength}자까지 가능합니다.`
     }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
