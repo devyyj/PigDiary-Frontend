@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import { Button } from 'react-bootstrap'
 import { api } from '../common/common'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function MyInfo () {
   const navigate = useNavigate()
@@ -13,16 +13,8 @@ export default function MyInfo () {
   useEffect(() => {
     // 서버에서 닉네임 가져오기
     const fetchUserData = async () => {
-      try {
-        const response = await api.get('/user') // axios로 변경
-        if (response.status === 200 || response.data.nickName) {
-          setNickName(response.data.nickName)
-        } else {
-          console.error('사용자 정보를 가져오지 못했습니다.')
-        }
-      } catch (error) {
-        console.error('사용자 정보를 가져오는 중 오류 발생:', error)
-      }
+      const response = await api.get('/user') // axios로 변경
+      setNickName(response.data.nickName)
     }
 
     fetchUserData()
@@ -33,34 +25,17 @@ export default function MyInfo () {
   }
 
   const handleSaveNickname = async () => {
-    try {
-      // 변경된 닉네임 서버에 저장
-      const response = await api.put('/user', { nickName })
-      if (response.status === 200) {
-        alert('내 정보가 저장됐어요! 🐽')
-        console.log('닉네임이 변경되었습니다.')
-      } else {
-        console.error('닉네임 변경에 실패했습니다.')
-      }
-    } catch (error) {
-      console.error('닉네임 변경 중 오류 발생:', error)
-    }
+    // 변경된 닉네임 서버에 저장
+    await api.put('/user', { nickName })
+    alert('내 정보가 저장됐어요! 🐽')
   }
 
   const handleDeleteAccount = async () => {
-    try {
-      if (confirm('정말 탈퇴하시나요? 😥')) {
-        // 회원 탈퇴 요청 서버에 보내기
-        const response = await api.delete('/user')
-        if (response.status === 200) {
-          confirm('탈퇴가 완료됐어요. 다음에 다시 만나요. 🐖')
-          navigate('/')
-        } else {
-          console.error('회원 탈퇴에 실패했습니다.')
-        }
-      }
-    } catch (error) {
-      console.error('회원 탈퇴 중 오류 발생:', error)
+    if (confirm('정말 탈퇴하시나요? 😥')) {
+      // 회원 탈퇴 요청 서버에 보내기
+      await api.delete('/user')
+      confirm('탈퇴가 완료됐어요. 다음에 다시 만나요. 🐖')
+      navigate('/')
     }
   }
 
@@ -88,9 +63,9 @@ export default function MyInfo () {
             </Col>
             <hr/>
             <div className="d-flex justify-content-end">
-                <a href={'#'} onClick={handleDeleteAccount}>
+                <Link to={'#'} onClick={handleDeleteAccount}>
                     회원 탈퇴
-                </a>
+                </Link>
             </div>
         </>
   )

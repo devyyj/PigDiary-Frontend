@@ -6,7 +6,7 @@ export default function ReadPost () {
   const params = useParams()
   return (
         <>
-            <PostEdit postNumber={params.postNumber}></PostEdit>
+            <PostEdit postId={params.postId}></PostEdit>
         </>
   )
 }

@@ -10,12 +10,10 @@ const Board = () => {
   const [pageList, setPageList] = useState([1, 2, 3, 4, 5])
   const [prev, setPrev] = useState(false)
   const [next, setNext] = useState(true)
-  // const [totalPage, setTotalPage] = useState(1);
 
   useLayoutEffect(() => {
     const fetchData = async () => {
       const response = (await api.get(`/freeboard?page=${page}`)).data
-      console.log(response)
       setData(response.dtoList)
       setPageList(response.pageList)
       setPrev(response.prev)
@@ -30,18 +28,22 @@ const Board = () => {
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>제목</th>
+                    <th style={{ whiteSpace: 'nowrap' }}>제목</th>
+                    {/* whiteSpace 속성을 'nowrap'로 설정하여 텍스트 줄바꿈을 방지 */}
                     <th>작성자</th>
                     <th>등록 시간</th>
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((item) => (
-                    <tr key={item.number}>
-                        <td>{item.number}</td>
-                        <td><Link to={`/freeboard/${item.number}`}>{item.title}</Link></td>
-                        <td>{item.user}</td>
-                        <td>{(new Date(item.regDate)).toLocaleTimeString()}</td>
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '150px' }}>
+                            {/* whiteSpace 속성과 ellipsis로 텍스트 오버플로우 제어 */}
+                            <Link to={`/freeboard/${item.id}`}>{item.title}</Link>
+                        </td>
+                        <td>{item.nickName}</td>
+                        <td>{new Date(item.createdAt).toLocaleTimeString()}</td>
                     </tr>
                 ))}
                 </tbody>

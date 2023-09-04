@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './styles/global.css'
 import List from './routes/freeBoard/list'
@@ -29,13 +29,13 @@ const router = createBrowserRouter([
         path: '/freeboard', element: <List/>, errorElement: <ErrorPage/>
       }, {
         // 게시글 조회
-        path: '/freeboard/:postNumber', element: <Read/>
+        path: '/freeboard/:postId', element: <Read/>
       }, {
         // 게시글 생성
         path: '/freeboard/create', element: <Create/>
       }, {
         // 게시글 수정
-        path: '/freeboard/update/:postNumber', element: <Update/>
+        path: '/freeboard/update/:postId', element: <Update/>
       }, {
         path: '/myinfo', element: <MyInfo/>
       }
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
 ])
 
 export default function App () {
+  useEffect(() => {
+    // 페이지가 로드될 때와 새로 고침될 때 실행되는 코드
+    console.warn('refresh check!')
+  }, [])
   // React.StrictMode 사용하면 render가 두번씩 됨
   return (<>
         {/* <React.StrictMode> */}
