@@ -41,7 +41,7 @@ export default function Board () {
                         <td>
                             <Link to={`/freeboard/${item.id}`} style={{ overflowWrap: 'anywhere' }}>{item.title}</Link>
                         </td>
-                        <td>{item.nickName}</td>
+                        <td><span>{item.nickName}</span><span className="fst-italic">{'@' + item.userId}</span> </td>
                         <td>{new Date(item.createdAt).toLocaleTimeString()}</td>
                     </tr>
                 ))}
