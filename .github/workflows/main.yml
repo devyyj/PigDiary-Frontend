@@ -34,4 +34,4 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Copy files to the AWS S3 bucket
-      run: aws s3 sync build/ s3://devyyj-github/
+      run: aws s3 sync build/ s3://pigdiary.devyyj.com/
