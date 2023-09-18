@@ -59,14 +59,20 @@ export default function PostEdit ({ postId }) {
       return
     }
 
-    const formData = new FormData()
-    formData.append('title', title)
-    formData.append('content', content)
+    // const formData = new FormData()
+    // formData.append('title', title)
+    // formData.append('content', content)
+
+    const data = {
+      postId,
+      title,
+      content
+    }
+
     if (postId) {
-      formData.append('postId', postId)
-      await api.put('/freeboard/' + postId, formData)
+      await api.put('/freeboard/' + postId, data)
     } else {
-      await api.post('/freeboard', formData)
+      await api.post('/freeboard', data)
     }
     navigate('/freeboard')
   }

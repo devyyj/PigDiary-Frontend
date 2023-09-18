@@ -22,7 +22,6 @@ export default function Diary () {
   })
 
   const [loading, setLoading] = useState(false)
-
   const [foodName, setFoodName] = useState('')
   const [mealDate, setMealDate] = useState(new Date())
   const [mealTime, setMealTime] = useState(0)
@@ -86,7 +85,8 @@ export default function Diary () {
     if (!cookies.isLogged) {
       if (confirm('로그인이 필요해요. 🐷 로그인 하시겠어요?')) {
         navigate('/login') // 로그인 페이지로 이동
-      } else return
+      }
+      return
     }
 
     // foodName 길이 검사
@@ -101,7 +101,6 @@ export default function Diary () {
       mealDate,
       mealTime
     }
-    console.log(newDiaryEntry)
     api
       .post('/diary', newDiaryEntry)
       .then((response) => {
@@ -110,6 +109,7 @@ export default function Diary () {
         setMealDate(new Date())
         setMealTime(0)
         setLoading(false)
+        setPageResponse()
       })
       .catch((error) => {
         console.error('Error adding diary: ', error)
