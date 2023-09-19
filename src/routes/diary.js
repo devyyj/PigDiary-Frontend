@@ -9,18 +9,13 @@ import { useNavigate } from 'react-router-dom'
 export default function Diary () {
   const [cookies] = useCookies(['isLogged'])
   const navigate = useNavigate()
+
   const [pageResponse, setPageResponse] = useState({
     dtoList: [],
-    totalPage: 0,
-    page: 0,
-    size: 10,
-    start: 0,
+    page: 1,
     end: 0,
-    prev: false,
-    next: false,
-    pageList: []
+    next: false
   })
-
   const [loading, setLoading] = useState(false)
   const [foodName, setFoodName] = useState('')
   const [mealDate, setMealDate] = useState(new Date())
@@ -31,45 +26,31 @@ export default function Diary () {
   const mealTimeOptions = ['아침', '점심', '저녁', '야식', '간식'] // 시간 옵션
 
   useEffect(() => {
-    fetchData(1)
-  }, [])
-
-  useEffect(() => {
-    if (pageResponse.page > 1) {
-      fetchData(pageResponse.page)
+    if (!cookies.isLogged) {
+      navigate(-1)
+      console.log(-1)
     }
+    fetchData(pageResponse.page)
   }, [pageResponse.page])
 
-  const fetchData = (page) => {
+  const fetchData = async (paramPage) => {
     setLoading(true)
-    api
-      .get(`/diary?page=${page}`)
-      .then((response) => {
-        const { dtoList, totalPage, page, size, start, end, prev, next, pageList } = response.data
-        setPageResponse({
-          dtoList: [...pageResponse.dtoList, ...dtoList],
-          totalPage,
-          page,
-          size,
-          start,
-          end,
-          prev,
-          next,
-          pageList
-        })
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error('Error fetching data: ', error)
-        setLoading(false)
-      })
+    const response = await api.get(`/diary?page=${paramPage}`)
+    const { dtoList, page, end, next } = response.data
+    if (paramPage === 1) {
+      pageResponse.dtoList = []
+    }
+    setPageResponse({
+      dtoList: [...pageResponse.dtoList, ...dtoList],
+      page,
+      end,
+      next
+    })
+    setLoading(false)
   }
 
   const handleLoadMore = () => {
-    setPageResponse({
-      ...pageResponse,
-      page: pageResponse.page + 1
-    })
+    setPageResponse({ ...pageResponse, page: pageResponse.page + 1 })
   }
 
   const handleInputChange = (e) => {
@@ -81,14 +62,7 @@ export default function Diary () {
     }
   }
 
-  const handleAddDiary = () => {
-    if (!cookies.isLogged) {
-      if (confirm('로그인이 필요해요. 🐷 로그인 하시겠어요?')) {
-        navigate('/login') // 로그인 페이지로 이동
-      }
-      return
-    }
-
+  const handleAddDiary = async () => {
     // foodName 길이 검사
     if (foodName.length < foodNameMinLength || foodName.length > foodNameMaxLength) {
       alert(`Food Name should be between ${foodNameMinLength} and ${foodNameMaxLength} characters.`)
@@ -101,20 +75,8 @@ export default function Diary () {
       mealDate,
       mealTime
     }
-    api
-      .post('/diary', newDiaryEntry)
-      .then((response) => {
-        fetchData(1)
-        setFoodName('')
-        setMealDate(new Date())
-        setMealTime(0)
-        setLoading(false)
-        setPageResponse()
-      })
-      .catch((error) => {
-        console.error('Error adding diary: ', error)
-        setLoading(false)
-      })
+    await api.post('/diary', newDiaryEntry)
+    await fetchData(1)
   }
 
   return (
@@ -147,11 +109,7 @@ export default function Diary () {
                                 </Form.Group>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Meal Time</Form.Label>
-                                    <Form.Select
-                                        name="mealTime"
-                                        value={mealTime}
-                                        onChange={handleInputChange}
-                                    >
+                                    <Form.Select name="mealTime" value={mealTime} onChange={handleInputChange}>
                                         {mealTimeOptions.map((option, index) => (
                                             <option key={index} value={index}>
                                                 {option}
