@@ -11,6 +11,7 @@ import Login from './routes/login'
 import MyInfo from './routes/myInfo'
 import Layout from './routes/layout'
 import Diary from './routes/diary'
+import Test from './routes/test'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,8 @@ const router = createBrowserRouter([
         path: '/myinfo', element: <MyInfo/>
       }, {
         path: '/diary', element: <Diary/>
+      }, {
+        path: '/test', element: <Test/>
       }
     ]
   }

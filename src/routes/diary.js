@@ -103,7 +103,7 @@ export default function Diary () {
                         <Card.Body>
                             <Form>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Food Name</Form.Label>
+                                    <Form.Label>음식 이름</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="foodName"
@@ -114,7 +114,7 @@ export default function Diary () {
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Meal Date</Form.Label>
+                                    <Form.Label>식사 날짜</Form.Label>
                                     <Col>
                                         <DatePicker
                                             className="form-control"
@@ -124,7 +124,7 @@ export default function Diary () {
                                     </Col>
                                 </Form.Group>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Meal Time</Form.Label>
+                                    <Form.Label>식사 시간</Form.Label>
                                     <Form.Select name="mealTime" value={mealTime} onChange={handleInputChange}>
                                         {mealTimeOptions.map((option, index) => (
                                             <option key={index} value={index}>
