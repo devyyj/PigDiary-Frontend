@@ -28,12 +28,15 @@ export default function Diary () {
   useEffect(() => {
     if (!cookies.isLogged) {
       navigate(-1)
-      console.log(-1)
+    } else {
+      fetchData(pageResponse.page)
     }
-    fetchData(pageResponse.page)
   }, [pageResponse.page])
 
   const fetchData = async (paramPage) => {
+    setFoodName('')
+    setMealTime(new Date())
+    setMealTime(0)
     setLoading(true)
     const response = await api.get(`/diary?page=${paramPage}`)
     const { dtoList, page, end, next } = response.data
@@ -77,6 +80,19 @@ export default function Diary () {
     }
     await api.post('/diary', newDiaryEntry)
     await fetchData(1)
+  }
+
+  async function deletePost (e, postId) {
+    e.preventDefault()
+
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      try {
+        await api.delete(`/diary/${postId}`)
+        await fetchData(1)
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
 
   return (
@@ -131,7 +147,7 @@ export default function Diary () {
                                 <Card.Subtitle>{item.mealDate}</Card.Subtitle>
                                 <Card.Text>{item.mealTime}</Card.Text>
                                 <Card.Link href="#">Edit</Card.Link>
-                                <Card.Link href="#">Delete</Card.Link>
+                                <Card.Link href="#" onClick={(e) => deletePost(e, item.id)}>Delete</Card.Link>
                             </Card.Body>
                         </Card>
                     </Col>
