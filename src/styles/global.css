@@ -5,15 +5,15 @@ body {
 }
 
 .pig-bg-color {
-    background-color: lightpink;
+    background-color: pink;
 }
 
 .pig-color {
-    color: lightpink;
+    color: pink;
 }
 
 .table-hover tbody tr:hover {
-    background-color: lightpink; /* 변경하고자 하는 색상 */
+    background-color: pink; /* 변경하고자 하는 색상 */
     --bs-table-hover-bg: none;
 }
 
