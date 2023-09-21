@@ -34,7 +34,7 @@ export default function topNav () {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link className="nav-link" onClick={checkLogin}>일기 쓰기</Nav.Link>
+                            <Nav.Link className="nav-link" onClick={checkLogin}>다이어리 쓰기</Nav.Link>
                             <Link to="/freeboard" className="nav-link">자유게시판</Link>
                         </Nav>
                         <Nav>

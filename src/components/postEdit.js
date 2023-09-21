@@ -70,7 +70,7 @@ export default function PostEdit ({ postId }) {
     }
 
     if (postId) {
-      await api.put('/freeboard/' + postId, data)
+      await api.put('/freeboard', data)
     } else {
       await api.post('/freeboard', data)
     }
